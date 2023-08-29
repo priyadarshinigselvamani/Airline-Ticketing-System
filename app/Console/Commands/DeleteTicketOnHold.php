@@ -6,9 +6,9 @@ use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
 use Exception;
-use App\Models\FLightDetail;
+use App\Models\BookingDetail;
 
-class GoDigitKYCStatusCommand extends Command
+class DeleteTicketOnHold extends Command
 {
     /**
      * The name and signature of the console command.
@@ -41,35 +41,17 @@ class GoDigitKYCStatusCommand extends Command
      */
     public function handle()
     {
-        $data = FLightDetail::withTrashed()
-                    ->where('booking_on_hold','=',1)->get();
-                    dd($data);
-        // FLightDetail::withTrashed()
-        //             ->where('booking_on_hold','=',1)
-        //             ->where('updated_at','<',Carbon::now()->toDateTimeString())
-        //             ->chunk(100, function ($proposals) use ($tenant,&$proposal_ids) {
 
-        //             foreach ($proposals as $proposal) {
-        //                 if(isset($proposal->extras['link_visited_at'])){
-        //                     try {
-        //                         GoDigitKYCStatus::dispatch($proposal);
-        //                         if(isset($proposal->extras['kyc_verification_status']) && ($proposal->extras['kyc_verification_status'] == "DONE")){
-        //                             SavePolicyPdf::dispatch($proposal);
-        //                         }
-        //                         // $jobs = [new GoDigitKYCStatus($this->proposal)];
-        //                         // dispatch_jobs($jobs);
-        //                     } catch (Exception $e) {
-        //                         report($e);
-        //                         continue;
-        //                     }
-        //                 }
-        //             }
-
-        //         });
-
-        //     \Log::channel("queued-pending-go-digit-kyc")
-        //         ->debug("Pushed the following proposals ".implode(",",$proposal_ids)." for ". $tenant->name);
-        //     $this->newLine();
-        // });
+        $booking_details = BookingDetail::where('booking_on_hold','=',1)->get();
+            foreach($booking_details as $key => $booking_detail){
+                $on_hold_time = $booking_detail->created_at;
+                $current_timestamp = Carbon::now()->toDateTimeString();
+                $timestamp1 = strtotime($on_hold_time);
+                $timestamp2 = strtotime($current_timestamp);
+                $hour_diff = floor(($timestamp2 - $timestamp1)/(60*60));
+                if($hour_diff > 3){
+                    $booking_details[$key]->delete();
+                }
+            }
     }
 }

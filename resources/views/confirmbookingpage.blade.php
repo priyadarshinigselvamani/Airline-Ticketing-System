@@ -150,7 +150,7 @@
 						</div>
 						<div class="collapse navbar-collapse" id="myNavbar">
 							<ul class="nav navbar-nav">
-								<li><a href="/index">Home</a></li>
+								{{-- <li><a href="/index">Home</a></li> --}}
 								<li class="active"><a href="booking.html">Booking</a></li>
 							</ul>
 							<ul class="nav navbar-nav navbar-right">
@@ -191,6 +191,11 @@
 						    	<div class="panel-heading">
 						    		<legend style="text-align: center;">Flight Information</legend>
 						    	</div>
+								@if(isset($booking_id) && $booking_id != null)
+									<div class="panel-body">
+										<a href="{{url('/download_ticket/'.$booking_id)}}" class="btn btn-success  float-right btns addtask addtaskpm mr-2">Download Ticket<i class="fas file-download ml-2"></i></a>
+									</div>
+								@endif
 						    	<div class="panel-body">
                                         <div class="input-group">
                                             <label for="class">Class</label>
@@ -232,10 +237,12 @@
 											</div>
 										</div>
 										<br>
-										<div class="input-group-btn" style="text-align: right !important; ">
-										<button id="submit" href="booking2.html" class="btn btn-primary trans-input-area" type="submit" style="width: 30%">Confirm Booking</button>
-										<br>
-										</div>
+										@if(!isset($booking_id))
+											<div class="input-group-btn" style="text-align: right !important; ">
+												<button id="submit" href="booking2.html" class="btn btn-primary trans-input-area" type="submit" style="width: 30%">Confirm Booking</button>
+												<br>
+											</div>
+										@endif
 									</form>
 								</div>
 							</div>

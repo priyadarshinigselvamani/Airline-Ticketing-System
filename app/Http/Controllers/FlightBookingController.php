@@ -57,7 +57,6 @@ class FlightBookingController extends Controller
                 }
             }
         }
-        dd($adult_count);
         return view('bookflight',compact('source','destination','departure_date','day','flight_details','adult_count'))->with('no', 1);
     }
     
@@ -122,8 +121,18 @@ class FlightBookingController extends Controller
         $confirm_booking->created_at = date('Y-m-d H:i:s');
         $confirm_booking->updated_at = date('Y-m-d H:i:s');
         $confirm_booking->save();
+        $booking_id = $confirm_booking->id;
+        $adult_count = $request->adult_count;
+        $flight_details = FLightDetail::where('id',$request->flight_id)->first();
+        $souce = $flight_details->source;
+        $destination = $flight_details->destination;
+        $departure_date = $request->date1;
+        $new_flight_fare = $request->price;
+        $id = $request->flight_id;
         Alert::success('User Added Successfully')->autoClose(5000);
-        return redirect('/home');
+        // return redirect('/home');
+        return view('/confirmbookingpage',compact('adult_count','souce','destination','departure_date','new_flight_fare','id','booking_id'));
+
     }
 
     public function holdFlightTicketView($id,$adult_count,$departure_date,Request $request)

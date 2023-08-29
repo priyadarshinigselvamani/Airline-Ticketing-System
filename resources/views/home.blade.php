@@ -245,7 +245,7 @@
 										<div>
 											<div class="input-group">
 												<label for="Adults">Adults</label>
-												<input type="number" class="form-control trans-input-area" id="Adults" value="1" name="" min="1" required>
+												<input type="number" class="form-control trans-input-area" id="Adults" name="adult_count" required>
 											</div>
 										</div>
 										<br>
@@ -268,16 +268,21 @@
                                                 </tr>
                                             </thead>
                                             <tbody align="center" style="text-align: center">
-                                                @foreach($flight_details as $index => $flight_detail)
-                                                <tr>
-                                                    <td>{{$no++}}</td>
-                                                    <td>{{$flight_detail->source}}</td>
-                                                    <td>{{$flight_detail->destination}}</td>
-                                                    <td>{{$flight_detail->time}}</td>
-                                                    <td><a href ="{{url('/hold_flight_ticket/'.$flight_detail->id)}}" class="btn btn-warning p-0 btn-sm mr-5" data-toggle="tooltip" title="Hold"></a></td>
-                                                    <td><a href ="{{url('/book_flight_ticket/'.$flight_detail->id)}}" class="btn btn-danger p-0 btn-sm mr-1 restore" data-toggle="tooltip" title="Restore"><i class="fas fa-trash-restore-alt" style='font-size:20px'></i></a></td>
-                                                </tr> 
-                                                @endforeach
+												@if($flight_details != NULL)
+													@foreach($flight_details as $index => $flight_detail)
+													<tr>
+														<td>{{$no++}}</td>
+														<td>{{$flight_detail->source}}</td>
+														<td>{{$flight_detail->destination}}</td>
+														<td>{{$flight_detail->time}}</td>
+														<td><a href ="{{url('/hold_flight_ticket/'.$flight_detail->id)}}" class="btn btn-warning p-0 btn-sm mr-5" data-toggle="tooltip" title="Hold"></a></td>
+														<td><a href ="{{url('/book_flight_ticket/'.$flight_detail->id)}}" class="btn btn-danger p-0 btn-sm mr-1 restore" data-toggle="tooltip" title="Restore"><i class="fas fa-trash-restore-alt" style='font-size:20px'></i></a></td>
+													</tr> 
+													@endforeach
+												@else
+												{{bhhhhhhhhhhhhhh}}
+													<tr><td colspan="13" align="center">Sorry!! No Flights availabe</br>Please select another date</td></tr>
+												@endif
                                             </tbody>
                                         </table>
                                     </div>

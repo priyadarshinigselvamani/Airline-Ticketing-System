@@ -140,46 +140,13 @@
 
 	</style>
 	<body>
-				<nav class="navbar navbar-inverse" style="border-radius:0px !important; margin:0;border: 0">
-					<div class="container-fluid">
-						<div class="navbar-header">
-						  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-							<span class="icon-bar"></span>                       
-						  </button>
-						  <a class="navbar-brand" href="index.html">Airline-X</a>
-						</div>
-						<div class="collapse navbar-collapse" id="myNavbar">
-							<ul class="nav navbar-nav">
-								{{-- <li><a href="/index">Home</a></li> --}}
-								<li class="active"><a href="booking.html">Booking</a></li>
-							</ul>
-							<ul class="nav navbar-nav navbar-right">
-								<li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></a></li>
-							</ul>
-							
-							{{-- <form class="navbar-form navbar-right">
-							  <div class="input-group">
-							    <input type="text" class="form-control" placeholder="Search">
-							    <div class="input-group-btn">
-							      <button class="btn btn-default" type="submit">
-							        <i class="glyphicon glyphicon-search"></i>
-							      </button>
-							    </div>
-							  </div>
-							</form> --}}
-						</div>	
-					</div>
-				</nav>
-				
-				
-
 				<div class="background-wrapper" style="background-image: url(images/airline/aa.jpg);">
 				
 				<!--header-->
 
 				<div class="container-fluid">
 					<header>
-						<h2>Book Your Flight</h2>
+						<h2>Airline-X</h2>
 						<hr>
 					</header>
 
@@ -191,53 +158,63 @@
 						    	{{-- <div class="panel-heading">
 						    		<legend style="text-align: center;">Flight Information</legend>
 						    	</div> --}}
+								<h4>Your journey details</h4>
 						    	<div class="panel-body">
-                                    <legend style="text-align: center;">Booking On Hold</legend>
-                                        <div class="input-group">
+                                        {{-- <div class="input-group">
                                             <label for="class">Class</label>
                                             <select class="form-control trans-input-area" id="class">
                                             <option>Economy</option>
                                             </select>
                                             <a href="#"></a>
-                                        </div>
-									<form class="form-inline" id="flightdetails" action="{{url('/put_on_hold')}}" method="POST"  autocomplete="off">
+                                        </div> --}}
+									<form class="form-inline" id="flightdetails" action="{{url('/confirm_booking')}}" method="POST"  autocomplete="off">
                                         {{csrf_field() }}
 										<br>
 										<div>
                                             <input type="hidden" name="flight_id" value="{{$id}}">
 											<div class="input-group">
-												<label for="from">From</label>
-												<input type="text" class="form-control trans-input-area" placeholder="Origin" name=""  id="from" value="{{$souce}}" required>
-											</div>
-											<div class="input-group">
-												<label for="to">To</label>
-												<input type="text" class="form-control trans-input-area" placeholder="Destination" name="" id="to" value="{{$destination}}" required>
+												<span>
+													<span>From: </span> <span><b>{{$souce}}</b></span>
+												</span>
 											</div>
 										</div>
 										<br>
 										<div>
 											<div class="input-group">
-												<label for="Departure">Departure Date</label>
-												<input type="date" class="form-control trans-input-area" name="date1" value="{{$departure_date}}" min="2015-01-01"  required>
+												<span>
+													<span>To: </span> <span><b>{{$destination}}</b></span>
+												</span>
 											</div>
 										</div>
 										<br>
 										<div>
 											<div class="input-group">
-												<label for="Adults">Adults</label>
-												<input type="number" class="form-control trans-input-area" id="Adults" value="{{$adult_count}}" name="adult_count" min="1" required>
+												<span>
+													<span>Departure Date: </span> <span><b>{{$departure_date}}</b></span>
+												</span>
 											</div>
+										</div>
+										<br>
+										<div>
+											<div class="input-group">
+												<span>
+													<span>Adults: </span> <span><b>{{$adult_count}}</b></span>
+												</span>
+											</div>
+										</div>
+										<br>
+										<div>
                                             <div class="input-group">
-												<label for="Adults">Price</label>
-												<input type="number" class="form-control trans-input-area" id="Adults" value="{{$new_flight_fare}}" name="price" min="1" required>
+												<span>
+													<span>Price: </span> <span><b>{{$new_flight_fare}}</b></span>
+												</span>
 											</div>
 										</div>
 										<br>
-										<div class="input-group-btn" style="text-align: right !important; ">
-                                            <legend style="text-align: center;">Ticket on hold will be cancelled after 3 hours from the time of onhold</legend>
-										<button id="submit" href="booking2.html" class="btn btn-primary trans-input-area" type="submit" style="width: 30%">Put Onhold</button>
+										{{-- <div class="input-group-btn" style="text-align: right !important; ">
+										<button id="submit" href="booking2.html" class="btn btn-primary trans-input-area" type="submit" style="width: 30%">Confirm Booking</button>
 										<br>
-										</div>
+										</div> --}}
 									</form>
 								</div>
 							</div>
